@@ -14,9 +14,9 @@
  * strengths everything works well.
  */
 
-#include <Adafruit_Microbit.h>
+#include <Adafruit_Calliope.h>
 
-Adafruit_Microbit microbit;
+Adafruit_Calliope calliope;
 
 void setup() {
   Serial.begin(115200);
@@ -24,15 +24,15 @@ void setup() {
   Serial.println("Microbit ready!");
   
   // custom services and characteristics can be added as well
-  microbit.BTLESerial.setLocalName("microbit");
-  microbit.BTLESerial.begin();
+  calliope.BTLESerial.setLocalName("calliope");
+  calliope.BTLESerial.begin();
 
   // Start LED matrix driver after radio (required)
-  microbit.begin();
+  calliope.begin();
 }
 
 void loop() {
-  microbit.BTLESerial.poll();
+  calliope.BTLESerial.poll();
 
   forward();
   //loopback();
@@ -40,12 +40,12 @@ void loop() {
 }
 
 
-// forward received from Serial to microbit.BTLESerial and vice versa
+// forward received from Serial to calliope.BTLESerial and vice versa
 void forward() {
-  if (microbit.BTLESerial && Serial) {
+  if (calliope.BTLESerial && Serial) {
     int byte;
-    if (microbit.BTLESerial.available()) {
-      Serial.write(microbit.BTLESerial.read());
+    if (calliope.BTLESerial.available()) {
+      Serial.write(calliope.BTLESerial.read());
     }
     char buffer[10];
     memset(buffer, 0x0, 10);
@@ -56,7 +56,7 @@ void forward() {
        idx++;
     }
     if (idx) {
-      microbit.BTLESerial.write(buffer, idx);
+      calliope.BTLESerial.write(buffer, idx);
     }
   }
   delay(1);
@@ -64,19 +64,19 @@ void forward() {
 
 // echo all received data back
 void loopback() {
-  if (microbit.BTLESerial) {
+  if (calliope.BTLESerial) {
     int byte;
-    while ((byte = microbit.BTLESerial.read()) > 0) {
-        microbit.BTLESerial.write(byte);
+    while ((byte = calliope.BTLESerial.read()) > 0) {
+        calliope.BTLESerial.write(byte);
     }
   }
 }
 
 // periodically sent time stamps
 void spam() {
-  if (microbit.BTLESerial) {
-    microbit.BTLESerial.print(millis());
-    microbit.BTLESerial.println(" tick-tacks!");
+  if (calliope.BTLESerial) {
+    calliope.BTLESerial.print(millis());
+    calliope.BTLESerial.println(" tick-tacks!");
     delay(1000);
   }
 }

@@ -4,9 +4,9 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 
-#include <Adafruit_Microbit.h>
+#include <Adafruit_Calliope.h>
 
-Adafruit_Microbit microbit;
+Adafruit_Calliope calliope;
 
 
 // function prototypes over in packetparser.cpp
@@ -24,11 +24,11 @@ void setup() {
   Serial.println("Controller demo ready!");
 
   // custom services and characteristics can be added as well
-  microbit.BTLESerial.setLocalName("microbit");
-  microbit.BTLESerial.begin();
+  calliope.BTLESerial.setLocalName("calliope");
+  calliope.BTLESerial.begin();
 
   // Start LED matrix driver after radio (required)
-  microbit.begin();
+  calliope.begin();
 }
 
 /**************************************************************************/
@@ -39,7 +39,7 @@ void setup() {
 void loop(void)
 {
   /* Wait for new data to arrive */
-  uint8_t len = readPacket(&(microbit.BTLESerial), BLE_READPACKET_TIMEOUT);
+  uint8_t len = readPacket(&(calliope.BTLESerial), BLE_READPACKET_TIMEOUT);
   if (len == 0) return;
 
   /* Got a packet! */

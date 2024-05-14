@@ -1,7 +1,7 @@
 void setup() {  
   Serial.begin(9600);
   
-  Serial.println("microbit is ready!");
+  Serial.println("calliope is ready!");
   
   pinMode(PIN_BUTTON_A, INPUT);
   pinMode(PIN_BUTTON_B, INPUT);

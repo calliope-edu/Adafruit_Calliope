@@ -1,11 +1,11 @@
 /*!
- * @file Adafruit_Microbit.cpp
+ * @file Adafruit_Calliope.cpp
  *
  * @mainpage Adafruit Microbit Library
  *
  * @section intro_sec Introduction
  *
- * Wrapper code and examples for using microbit with arduino IDE
+ * Wrapper code and examples for using calliope mini with arduino IDE
  *
  *  Includes ftoa() code from stm32tpl --  STM32 C++ Template Peripheral Library
  *
@@ -36,20 +36,20 @@
  *
  */
 
-#include <Adafruit_Microbit.h>
+#include <Adafruit_Calliope.h>
 
 #ifdef SD_SELECTED
 #include "nrf_soc.h"
 #endif
 
 #if defined(NRF51)
-#define MATRIX_ROWS 3 //!< Number of rows on the microbit LED matrix
-#define MATRIX_COLS 9 //!< Number of columns on the microbit LED matrix
+#define MATRIX_ROWS 3 //!< Number of rows on the calliope mini LED matrix
+#define MATRIX_COLS 9 //!< Number of columns on the calliope mini LED matrix
 uint8_t rowpins[MATRIX_ROWS] = {
-    26, 27, 28}; //!< Pin numbers for the rows on the microbit LED matrix
+    26, 27, 28}; //!< Pin numbers for the rows on the calliope mini LED matrix
 uint8_t colpins[MATRIX_COLS] = {
     3,  4, 10, 23, 24,
-    25, 9, 7,  6}; //!< Pin numbers for the columns on the microbit LED matrix
+    25, 9, 7,  6}; //!< Pin numbers for the columns on the calliope mini LED matrix
 
 uint8_t pixel_to_row[25] = {
     1, 2, 1, 2, 1, 3, 3, 3, 3, 3, 2, 1, 2,
@@ -60,13 +60,13 @@ uint8_t pixel_to_col[25] = {
     9, 1, 8, 7, 6, 5, 4, 3, 7, 1, 6, 2}; //!< Defines what column each pixel is
                                          //!< in
 #elif defined(NRF52833_XXAA)
-#define MATRIX_ROWS 5 //!< Number of rows on the microbit LED matrix
-#define MATRIX_COLS 5 //!< Number of columns on the microbit LED matrix
+#define MATRIX_ROWS 5 //!< Number of rows on the calliope mini LED matrix
+#define MATRIX_COLS 5 //!< Number of columns on the calliope mini LED matrix
 uint8_t rowpins[MATRIX_ROWS] = {
     21, 22, 23, 24,
-    25}; //!< Pin numbers for the rows on the microbit LED matrix
+    25}; //!< Pin numbers for the rows on the calliope mini LED matrix
 uint8_t colpins[MATRIX_COLS] = {
-    4, 7, 18, 6, 10}; //!< Pin numbers for the columns on the microbit LED matrix
+    4, 7, 18, 6, 10}; //!< Pin numbers for the columns on the calliope mini LED matrix
 
 uint8_t pixel_to_row[25] = {
     1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3,
@@ -80,7 +80,7 @@ uint8_t pixel_to_col[25] = {
 volatile uint8_t currentRow =
     0; //!< Iterator that is used to write to the desired row
 
-Adafruit_Microbit_Matrix *handle =
+Adafruit_Calliope_Matrix *handle =
     NULL; //!< Microbit LED matrix handle, basically an abstraction of the
           //!< matrix itself to make using it easier.
 
@@ -91,17 +91,17 @@ extern "C" {
 void TIMER2_IRQHandler(void) { IRQ_MATRIX_HANDLER(); }
 }
 
-Adafruit_Microbit_Matrix::Adafruit_Microbit_Matrix() : Adafruit_GFX(5, 5) {
+Adafruit_Calliope_Matrix::Adafruit_Calliope_Matrix() : Adafruit_GFX(5, 5) {
   memset(matrix_buffer, 0x0, MATRIX_COLS * MATRIX_ROWS);
 }
 
-Adafruit_Microbit_Matrix::~Adafruit_Microbit_Matrix(void) {}
+Adafruit_Calliope_Matrix::~Adafruit_Calliope_Matrix(void) {}
 
 /*!
  *    @brief Initialized the 5x5 matrix and scanning IRQ
  *    @returns True
  */
-boolean Adafruit_Microbit_Matrix::begin(void) {
+boolean Adafruit_Calliope_Matrix::begin(void) {
   handle = this;
 
   for (uint8_t c = 0; c < MATRIX_COLS; c++) {
@@ -131,7 +131,7 @@ boolean Adafruit_Microbit_Matrix::begin(void) {
  *    @brief Matrix object function called by IRQ handler for each row
  *    This is not optimized at all but its not so bad either!
  */
-void Adafruit_Microbit_Matrix::rowHandler(void) {
+void Adafruit_Calliope_Matrix::rowHandler(void) {
   // disable current row
   digitalWrite(rowpins[currentRow], LOW);
   for (uint8_t c = 0; c < MATRIX_COLS; c++) {
@@ -156,7 +156,7 @@ void Adafruit_Microbit_Matrix::rowHandler(void) {
 /*!
  *    @brief Sets up the IRQ for timer 2 to run the matrix refresh.
  */
-void Adafruit_Microbit_Matrix::startTimer(void) {
+void Adafruit_Calliope_Matrix::startTimer(void) {
   NRF_TIMER2->MODE = TIMER_MODE_MODE_Timer; // Set the timer in Counter Mode
   NRF_TIMER2->TASKS_CLEAR = 1; // clear the task first to be usable for later
   NRF_TIMER2->PRESCALER = 4;
@@ -188,7 +188,7 @@ void IRQ_MATRIX_HANDLER(void) {
  *    @param  y 0 to 4 row
  *    @param  color 1 for LEDs on, 0 for off
  */
-void Adafruit_Microbit_Matrix::drawPixel(int16_t x, int16_t y, uint16_t color) {
+void Adafruit_Calliope_Matrix::drawPixel(int16_t x, int16_t y, uint16_t color) {
   if ((x < 0) || (y < 0) || (x >= _width) || (y >= _height))
     return;
 
@@ -226,13 +226,13 @@ void Adafruit_Microbit_Matrix::drawPixel(int16_t x, int16_t y, uint16_t color) {
 /*!
  *    @brief  Clear the 5x5 matrix
  */
-void Adafruit_Microbit_Matrix::clear(void) { fillScreen(0); }
+void Adafruit_Calliope_Matrix::clear(void) { fillScreen(0); }
 
 /*!
  *    @brief  Fill the 5x5 matrix with an LED 'color'
  *    @param  color 1 for LEDs on, 0 for off
  */
-void Adafruit_Microbit_Matrix::fillScreen(uint16_t color) {
+void Adafruit_Calliope_Matrix::fillScreen(uint16_t color) {
   for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
     for (uint8_t c = 0; c < MATRIX_COLS; c++) {
       matrix_buffer[r][c] = color;
@@ -244,7 +244,7 @@ void Adafruit_Microbit_Matrix::fillScreen(uint16_t color) {
  *    @brief  Display a 5-byte bitmap on the 5x5 LED matrix
  *    @param  bitmap 5 byte bitmap
  */
-void Adafruit_Microbit_Matrix::show(const uint8_t bitmap[]) {
+void Adafruit_Calliope_Matrix::show(const uint8_t bitmap[]) {
   clear();
   drawBitmap(-3, 0, bitmap, 8, 5, LED_ON);
 }
@@ -253,7 +253,7 @@ void Adafruit_Microbit_Matrix::show(const uint8_t bitmap[]) {
  *    @brief  Display a string on the 5x5 LED matrix
  *    @param  string Null-terminated ascii string
  */
-void Adafruit_Microbit_Matrix::print(char *string) {
+void Adafruit_Calliope_Matrix::print(char *string) {
   setFont(&TomThumb);
   setTextWrap(false);
   setTextColor(LED_ON);
@@ -271,7 +271,7 @@ void Adafruit_Microbit_Matrix::print(char *string) {
  *    @brief  Display a signed number on the 5x5 LED matrix
  *    @param  i The value
  */
-void Adafruit_Microbit_Matrix::print(int32_t i) {
+void Adafruit_Calliope_Matrix::print(int32_t i) {
   char buffer[34];
   memset(buffer, 0, 34);
 
@@ -283,7 +283,7 @@ void Adafruit_Microbit_Matrix::print(int32_t i) {
  *    @brief  Display a signed number on the 5x5 LED matrix
  *    @param  i The value
  */
-void Adafruit_Microbit_Matrix::print(int i) { print((int32_t)i); }
+void Adafruit_Calliope_Matrix::print(int i) { print((int32_t)i); }
 
 #define MAX_PRECISION                                                          \
   (10) //!< Max floating point precision, default is 10, or 5X10^-11
@@ -306,7 +306,7 @@ static const double rounders[MAX_PRECISION + 1] = {
  *    @param  f The floating point value
  *    @param  precision Digits after decimal
  */
-void Adafruit_Microbit_Matrix::print(double f, int precision) {
+void Adafruit_Calliope_Matrix::print(double f, int precision) {
   char buf[80];
 
   char *ptr = buf;
@@ -401,7 +401,7 @@ void Adafruit_Microbit_Matrix::print(double f, int precision) {
  *    @param  string Null-terminated ascii string
  *    @param  stepdelay Milliseconds per scroll step
  */
-void Adafruit_Microbit_Matrix::scrollText(char *string, uint8_t stepdelay) {
+void Adafruit_Calliope_Matrix::scrollText(char *string, uint8_t stepdelay) {
   setFont(&TomThumb);
   setTextWrap(false);
   setTextColor(LED_ON);
@@ -419,14 +419,14 @@ void Adafruit_Microbit_Matrix::scrollText(char *string, uint8_t stepdelay) {
 /*!
  *    @brief  Initializes the LED matrix
  */
-void Adafruit_Microbit::begin(void) { matrix.begin(); }
+void Adafruit_Calliope::begin(void) { matrix.begin(); }
 
 #ifdef SD_SELECTED
 /*!
  *    @brief  Request the temperature from the Soft Device
  *    @returns Temperature in Celsius
  */
-uint8_t Adafruit_Microbit::getDieTemp(void) {
+uint8_t Adafruit_Calliope::getDieTemp(void) {
   int32_t temp = 0;
   uint32_t err_code;
 
@@ -441,7 +441,7 @@ uint8_t Adafruit_Microbit::getDieTemp(void) {
 
 /*********************************************************************/
 #ifdef SD_SELECTED
-Adafruit_Microbit_BLESerial *Adafruit_Microbit_BLESerial::_instance = NULL;
+Adafruit_Calliope_BLESerial *Adafruit_Calliope_BLESerial::_instance = NULL;
 
 /*!
  *    @brief  Create a Nordic UART service interface
@@ -449,14 +449,14 @@ Adafruit_Microbit_BLESerial *Adafruit_Microbit_BLESerial::_instance = NULL;
  *    @param  rdy Unused
  *    @param  rst Unused
  */
-Adafruit_Microbit_BLESerial::Adafruit_Microbit_BLESerial(unsigned char req,
+Adafruit_Calliope_BLESerial::Adafruit_Calliope_BLESerial(unsigned char req,
                                                          unsigned char rdy,
                                                          unsigned char rst)
     : BLEPeripheral(req, rdy, rst) {
   this->_txCount = 0;
   this->_rxHead = this->_rxTail = 0;
   this->_flushed = 0;
-  Adafruit_Microbit_BLESerial::_instance = this;
+  Adafruit_Calliope_BLESerial::_instance = this;
 
   addAttribute(this->_uartService);
   addAttribute(this->_uartNameDescriptor);
@@ -464,7 +464,7 @@ Adafruit_Microbit_BLESerial::Adafruit_Microbit_BLESerial(unsigned char req,
   addAttribute(this->_rxCharacteristic);
   addAttribute(this->_rxNameDescriptor);
   this->_rxCharacteristic.setEventHandler(
-      BLEWritten, Adafruit_Microbit_BLESerial::_received);
+      BLEWritten, Adafruit_Calliope_BLESerial::_received);
   addAttribute(this->_txCharacteristic);
   addAttribute(this->_txNameDescriptor);
 }
@@ -472,17 +472,17 @@ Adafruit_Microbit_BLESerial::Adafruit_Microbit_BLESerial(unsigned char req,
 /*!
  *    @brief  Initialize Nordic UART service interface
  */
-void Adafruit_Microbit_BLESerial::begin(...) {
+void Adafruit_Calliope_BLESerial::begin(...) {
   BLEPeripheral::begin();
 #ifdef BLE_SERIAL_DEBUG
-  Serial.println(F("Adafruit_Microbit_BLESerial::begin()"));
+  Serial.println(F("Adafruit_Calliope_BLESerial::begin()"));
 #endif
 }
 
 /*!
  *    @brief Check/flush the UART service pipe
  */
-void Adafruit_Microbit_BLESerial::poll() {
+void Adafruit_Calliope_BLESerial::poll() {
   if (millis() < this->_flushed + 100) {
     BLEPeripheral::poll();
   } else {
@@ -493,7 +493,7 @@ void Adafruit_Microbit_BLESerial::poll() {
 /*!
  *    @brief Send any pending data and close BLE connection
  */
-void Adafruit_Microbit_BLESerial::end() {
+void Adafruit_Calliope_BLESerial::end() {
   this->_rxCharacteristic.setEventHandler(BLEWritten, NULL);
   this->_rxHead = this->_rxTail = 0;
   flush();
@@ -504,12 +504,12 @@ void Adafruit_Microbit_BLESerial::end() {
  *  @brief Check how many bytes are available to read over Nordic UART
  *  @returns Bytes available to read
  */
-int Adafruit_Microbit_BLESerial::available(void) {
+int Adafruit_Calliope_BLESerial::available(void) {
   BLEPeripheral::poll();
   int retval = (this->_rxHead - this->_rxTail + sizeof(this->_rxBuffer)) %
                sizeof(this->_rxBuffer);
 #ifdef BLE_SERIAL_DEBUG
-  Serial.print(F("Adafruit_Microbit_BLESerial::available() = "));
+  Serial.print(F("Adafruit_Calliope_BLESerial::available() = "));
   Serial.println(retval);
 #endif
   return retval;
@@ -519,13 +519,13 @@ int Adafruit_Microbit_BLESerial::available(void) {
  *    @brief Peek at next byte of UART buffer, without removing it
  *    @returns Byte read, -1 if no data to read (use available() first!)
  */
-int Adafruit_Microbit_BLESerial::peek(void) {
+int Adafruit_Calliope_BLESerial::peek(void) {
   BLEPeripheral::poll();
   if (this->_rxTail == this->_rxHead)
     return -1;
   uint8_t byte = this->_rxBuffer[(this->_rxTail + 1) % sizeof(this->_rxBuffer)];
 #ifdef BLE_SERIAL_DEBUG
-  Serial.print(F("Adafruit_Microbit_BLESerial::peek() = "));
+  Serial.print(F("Adafruit_Calliope_BLESerial::peek() = "));
   Serial.print((char)byte);
   Serial.print(F(" 0x"));
   Serial.println(byte, HEX);
@@ -537,14 +537,14 @@ int Adafruit_Microbit_BLESerial::peek(void) {
  *    @brief Read one byte out of UART buffer
  *    @returns Byte read, -1 if no data to read (use available() first!)
  */
-int Adafruit_Microbit_BLESerial::read(void) {
+int Adafruit_Calliope_BLESerial::read(void) {
   BLEPeripheral::poll();
   if (this->_rxTail == this->_rxHead)
     return -1;
   this->_rxTail = (this->_rxTail + 1) % sizeof(this->_rxBuffer);
   uint8_t byte = this->_rxBuffer[this->_rxTail];
 #ifdef BLE_SERIAL_DEBUG
-  Serial.print(F("Adafruit_Microbit_BLESerial::read() = "));
+  Serial.print(F("Adafruit_Calliope_BLESerial::read() = "));
   Serial.print((char)byte);
   Serial.print(F(" 0x"));
   Serial.println(byte, HEX);
@@ -555,7 +555,7 @@ int Adafruit_Microbit_BLESerial::read(void) {
 /*!
  *    @brief Send any pending data in UART buffer
  */
-void Adafruit_Microbit_BLESerial::flush(void) {
+void Adafruit_Calliope_BLESerial::flush(void) {
   if (this->_txCount == 0)
     return;
   this->_txCharacteristic.setValue(this->_txBuffer, this->_txCount);
@@ -563,7 +563,7 @@ void Adafruit_Microbit_BLESerial::flush(void) {
   this->_txCount = 0;
   BLEPeripheral::poll();
 #ifdef BLE_SERIAL_DEBUG
-  Serial.println(F("Adafruit_Microbit_BLESerial::flush()"));
+  Serial.println(F("Adafruit_Calliope_BLESerial::flush()"));
 #endif
 }
 
@@ -572,7 +572,7 @@ void Adafruit_Microbit_BLESerial::flush(void) {
  *    @param byte Since data byte to write
  *    @returns 1 on success, 0 on failure
  */
-size_t Adafruit_Microbit_BLESerial::write(uint8_t byte) {
+size_t Adafruit_Calliope_BLESerial::write(uint8_t byte) {
   BLEPeripheral::poll();
   if (this->_txCharacteristic.subscribed() == false)
     return 0;
@@ -580,7 +580,7 @@ size_t Adafruit_Microbit_BLESerial::write(uint8_t byte) {
   if (this->_txCount == sizeof(this->_txBuffer))
     flush();
 #ifdef BLE_SERIAL_DEBUG
-  Serial.print(F("Adafruit_Microbit_BLESerial::write("));
+  Serial.print(F("Adafruit_Calliope_BLESerial::write("));
   Serial.print((char)byte);
   Serial.print(F(" 0x"));
   Serial.print(byte, HEX);
@@ -593,31 +593,31 @@ size_t Adafruit_Microbit_BLESerial::write(uint8_t byte) {
  *    @brief Test if UART service is connected over BLE
  *    @returns True if connected
  */
-Adafruit_Microbit_BLESerial::operator bool() {
+Adafruit_Calliope_BLESerial::operator bool() {
   bool retval = BLEPeripheral::connected();
 #ifdef BLE_SERIAL_DEBUG
-  Serial.print(F("Adafruit_Microbit_BLESerial::operator bool() = "));
+  Serial.print(F("Adafruit_Calliope_BLESerial::operator bool() = "));
   Serial.println(retval);
 #endif
   return retval;
 }
 
-void Adafruit_Microbit_BLESerial::_received(const uint8_t *data, size_t size) {
+void Adafruit_Calliope_BLESerial::_received(const uint8_t *data, size_t size) {
   for (int i = 0; i < size; i++) {
     this->_rxHead = (this->_rxHead + 1) % sizeof(this->_rxBuffer);
     this->_rxBuffer[this->_rxHead] = data[i];
   }
 #ifdef BLE_SERIAL_DEBUG
-  Serial.print(F("Adafruit_Microbit_BLESerial::received("));
+  Serial.print(F("Adafruit_Calliope_BLESerial::received("));
   for (int i = 0; i < size; i++)
     Serial.print((char)data[i]);
   Serial.println(F(")"));
 #endif
 }
 
-void Adafruit_Microbit_BLESerial::_received(
+void Adafruit_Calliope_BLESerial::_received(
     BLECentral & /*central*/, BLECharacteristic &rxCharacteristic) {
-  Adafruit_Microbit_BLESerial::_instance->_received(
+  Adafruit_Calliope_BLESerial::_instance->_received(
       rxCharacteristic.value(), rxCharacteristic.valueLength());
 }
 #endif
@@ -626,22 +626,22 @@ void Adafruit_Microbit_BLESerial::_received(
 /*!
  * @brief Preset smile image for LED matrix
  */
-const uint8_t Adafruit_Microbit_Matrix::MICROBIT_SMILE[5] = {
+const uint8_t Adafruit_Calliope_Matrix::MICROBIT_SMILE[5] = {
     B00000, B01010, B00000, B10001, B01110,
 };
 
-const uint8_t Adafruit_Microbit_Matrix::EMPTYHEART[5] = {
+const uint8_t Adafruit_Calliope_Matrix::EMPTYHEART[5] = {
     B01010, B10101, B10001, B01010, B00100,
 };
 
-const uint8_t Adafruit_Microbit_Matrix::HEART[5] = {
+const uint8_t Adafruit_Calliope_Matrix::HEART[5] = {
     B01010, B11111, B11111, B01110, B00100,
 };
 
-const uint8_t Adafruit_Microbit_Matrix::NO[5] = {
+const uint8_t Adafruit_Calliope_Matrix::NO[5] = {
     B10001, B01010, B00100, B01010, B10001,
 };
 
-const uint8_t Adafruit_Microbit_Matrix::YES[5] = {
+const uint8_t Adafruit_Calliope_Matrix::YES[5] = {
     B00000, B00001, B00010, B10100, B01000,
 };

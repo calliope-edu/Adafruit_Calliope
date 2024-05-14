@@ -22,7 +22,7 @@ MMA8653 accel;
 void setup() {
   Serial.begin(9600);
 
-  Serial.println("microbit accel test");
+  Serial.println("calliope mini accel test");
   
   accel.begin(false, 2); // 8-bit mode, 2g range
 }

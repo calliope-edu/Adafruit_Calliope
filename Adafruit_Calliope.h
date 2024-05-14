@@ -1,9 +1,9 @@
 /*!
- * @file Adafruit_Microbit.h
+ * @file Adafruit_Calliope.h
  */
 
-#ifndef _ADAFRUIT_MICROBIT_H_
-#define _ADAFRUIT_MICROBIT_H_
+#ifndef _Adafruit_Calliope_H_
+#define _Adafruit_Calliope_H_
 
 #include <Adafruit_GFX.h>
 #include <Arduino.h>
@@ -20,10 +20,10 @@
 void IRQ_MATRIX_HANDLER(void); //!< Matrix interrupt request handler
 
 /** Class to create Adafruit_GFX interface for 5x5 matrix of micro:bit */
-class Adafruit_Microbit_Matrix : public Adafruit_GFX {
+class Adafruit_Calliope_Matrix : public Adafruit_GFX {
 public:
-  Adafruit_Microbit_Matrix();
-  ~Adafruit_Microbit_Matrix(void);
+  Adafruit_Calliope_Matrix();
+  ~Adafruit_Calliope_Matrix(void);
   boolean begin(void);
   void drawPixel(int16_t x, int16_t y, uint16_t color),
       fillScreen(uint16_t color), clear(void), rowHandler(void);
@@ -51,9 +51,9 @@ private:
 
 #ifdef SD_SELECTED
 /** Class to use Nordic UART service as a Stream object on micro:bit */
-class Adafruit_Microbit_BLESerial : public BLEPeripheral, public Stream {
+class Adafruit_Calliope_BLESerial : public BLEPeripheral, public Stream {
 public:
-  Adafruit_Microbit_BLESerial(unsigned char req = BLE_DEFAULT_REQ,
+  Adafruit_Calliope_BLESerial(unsigned char req = BLE_DEFAULT_REQ,
                               unsigned char rdy = BLE_DEFAULT_RDY,
                               unsigned char rst = BLE_DEFAULT_RST);
 
@@ -71,7 +71,7 @@ public:
 
 private:
   unsigned long _flushed;
-  static Adafruit_Microbit_BLESerial *_instance;
+  static Adafruit_Calliope_BLESerial *_instance;
 
   size_t _rxHead;
   size_t _rxTail;
@@ -100,11 +100,11 @@ private:
 #endif
 
 /** Class to create hardware interface to BLE/matrix of micro:bit */
-class Adafruit_Microbit {
+class Adafruit_Calliope {
 public:
-  Adafruit_Microbit_Matrix matrix; ///< 5x5 graphical matrix
+  Adafruit_Calliope_Matrix matrix; ///< 5x5 graphical matrix
 #ifdef SD_SELECTED
-  Adafruit_Microbit_BLESerial BTLESerial; ///< Nordic UART service connection
+  Adafruit_Calliope_BLESerial BTLESerial; ///< Nordic UART service connection
   uint8_t getDieTemp(void);
 #endif
 

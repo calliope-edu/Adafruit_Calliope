@@ -1,9 +1,9 @@
 // This is a 'low level' demo showing how to use timer 2 (the only available timer really)
 // to blink an LED. This code turned into the matrix handler, so you cant use it and the 
-// Adafruit_Microbit library at the same time but maybe its useful!
+// Adafruit_Calliope library at the same time but maybe its useful!
 
-const int COL1 = 3;     // Column #1 control
-const int LED = 26;     // 'row 1' led
+const int COL1 = 4;     // Column #1 control (mini3)
+const int LED = 21;     // 'row 1' led (mini3)
 
 
 void start_timer(void)
@@ -46,7 +46,7 @@ void timer_pal(void) {
 
 void setup() {  
   Serial.begin(9600);
-  Serial.println("microbit is ready!");
+  Serial.println("calliope is ready!");
 
   // because the LEDs are multiplexed, we must ground the opposite side of the LED
   pinMode(COL1, OUTPUT);

@@ -1,14 +1,14 @@
-const int COL1 = 3;     // Column #1 control
-const int LED = 26;     // 'row 1' led
+const int COL1 = 4;     // Column #1 control (mini3)
+const int LED = 21;     // 'row 1' led (mini3)
 
 void setup() {  
   Serial.begin(9600);
   
-  Serial.println("microbit is ready!");
+  Serial.println("calliope is ready!");
 
   // because the LEDs are multiplexed, we must ground the opposite side of the LED
   pinMode(COL1, OUTPUT);
-  digitalWrite(COL1, LOW); 
+  digitalWrite(COL1, HIGH); 
    
   pinMode(LED, OUTPUT);   
 }

@@ -1,8 +1,8 @@
 // Slow die temperature reader for piping to Adafruit IO
 
-#include <Adafruit_Microbit.h>
+#include <Adafruit_Calliope.h>
 
-Adafruit_Microbit microbit;
+Adafruit_Calliope calliope;
 
 void setup()
 {
@@ -10,24 +10,24 @@ void setup()
   
   Serial.println("nRF5x Die Temperature Plotting");
 
-  microbit.BTLESerial.setLocalName("microbit");
-  microbit.BTLESerial.begin();
+  calliope.BTLESerial.setLocalName("calliope");
+  calliope.BTLESerial.begin();
 
   // Start LED matrix driver after radio (required)
-  microbit.begin();
+  calliope.begin();
 }
 
 #define OVERSAMPLE 50
 
 void loop() {
-  microbit.BTLESerial.poll();
+  calliope.BTLESerial.poll();
 
   // Take 'OVERSAMPLES' measurements and average them!
   float avgtemp = 0;
   for (int i = 0; i < OVERSAMPLE; i++) {
     int32_t temp;
     do {
-      temp = microbit.getDieTemp();
+      temp = calliope.getDieTemp();
     } while (temp == 0);  // re run until we get valid data
     avgtemp += temp;
     delay(1);
@@ -38,7 +38,7 @@ void loop() {
   Serial.println(avgtemp);  // Float value since temp is in 0.25°C steps
 
   // Send just the raw reading over bluetooth
-  microbit.BTLESerial.println(avgtemp);
+  calliope.BTLESerial.println(avgtemp);
 
   delay(5000);
 }
