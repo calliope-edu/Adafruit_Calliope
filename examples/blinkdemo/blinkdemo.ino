@@ -8,7 +8,7 @@ void setup() {
 
   // because the LEDs are multiplexed, we must ground the opposite side of the LED
   pinMode(COL1, OUTPUT);
-  digitalWrite(COL1, HIGH); 
+  digitalWrite(COL1, LOW); 
    
   pinMode(LED, OUTPUT);   
 }
