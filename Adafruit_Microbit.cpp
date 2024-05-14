@@ -66,7 +66,7 @@ uint8_t rowpins[MATRIX_ROWS] = {
     21, 22, 23, 24,
     25}; //!< Pin numbers for the rows on the microbit LED matrix
 uint8_t colpins[MATRIX_COLS] = {
-    4, 7, 3, 6, 10}; //!< Pin numbers for the columns on the microbit LED matrix
+    4, 7, 18, 6, 10}; //!< Pin numbers for the columns on the microbit LED matrix
 
 uint8_t pixel_to_row[25] = {
     1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3,
