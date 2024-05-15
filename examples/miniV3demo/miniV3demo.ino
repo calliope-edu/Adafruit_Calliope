@@ -81,7 +81,7 @@ void loop(){
   
   // Microphone Measurement: get maximum value over 1000 measurements
   int maxVol = 0;
-  for (int i = 0; i < 10000; ++i) {
+  for (int i = 0; i < 1000; ++i) {
     int mic = analogRead(PIN_A6);
     maxVol = max(maxVol, mic);
   }
