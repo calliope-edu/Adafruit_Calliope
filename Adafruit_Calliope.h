@@ -19,7 +19,7 @@
 
 void IRQ_MATRIX_HANDLER(void); //!< Matrix interrupt request handler
 
-/** Class to create Adafruit_GFX interface for 5x5 matrix of micro:bit */
+/** Class to create Adafruit_GFX interface for 5x5 matrix of Calliope mini */
 class Adafruit_Calliope_Matrix : public Adafruit_GFX {
 public:
   Adafruit_Calliope_Matrix();
@@ -50,7 +50,7 @@ private:
 };
 
 #ifdef SD_SELECTED
-/** Class to use Nordic UART service as a Stream object on micro:bit */
+/** Class to use Nordic UART service as a Stream object on Calliope mini */
 class Adafruit_Calliope_BLESerial : public BLEPeripheral, public Stream {
 public:
   Adafruit_Calliope_BLESerial(unsigned char req = BLE_DEFAULT_REQ,
@@ -99,7 +99,7 @@ private:
 };
 #endif
 
-/** Class to create hardware interface to BLE/matrix of micro:bit */
+/** Class to create hardware interface to BLE/matrix of Calliope mini */
 class Adafruit_Calliope {
 public:
   Adafruit_Calliope_Matrix matrix; ///< 5x5 graphical matrix

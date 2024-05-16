@@ -626,7 +626,7 @@ void Adafruit_Calliope_BLESerial::_received(
 /*!
  * @brief Preset smile image for LED matrix
  */
-const uint8_t Adafruit_Calliope_Matrix::MICROBIT_SMILE[5] = {
+const uint8_t Adafruit_Calliope_Matrix::CALLIOPE_SMILE[5] = {
     B00000, B01010, B00000, B10001, B01110,
 };
 
