@@ -1,4 +1,4 @@
-# Adafruit Calliope library [![Build Status](https://github.com/fabianhugo/Adafruit_Calliope/workflows/Arduino%20Library%20CI/badge.svg)](https://github.com/fabianhugo/Adafruit_Calliope/actions)[![Documentation](https://github.com/adafruit/ci-arduino/blob/master/assets/doxygen_badge.svg)](http://adafruit.github.io/Adafruit_microbit/html/index.html)
+# Adafruit Calliope library
 
 ### This is a fork of Adafruit's [micro:bit library](https://github.com/adafruit/Adafruit_Microbit)
 The fork was modified to support the Calliope mini V3 and include an example project to show core functionalities of the Calliope mini V3.
