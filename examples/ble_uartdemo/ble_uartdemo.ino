@@ -21,7 +21,7 @@ Adafruit_Calliope calliope;
 void setup() {
   Serial.begin(115200);
 
-  Serial.println("Microbit ready!");
+  Serial.println("Calliope ready!");
   
   // custom services and characteristics can be added as well
   calliope.BTLESerial.setLocalName("calliope");

@@ -1,7 +1,7 @@
 /*!
  * @file Adafruit_Calliope.cpp
  *
- * @mainpage Adafruit Microbit Library
+ * @mainpage Adafruit Calliope Library
  *
  * @section intro_sec Introduction
  *
@@ -46,10 +46,10 @@
 #define MATRIX_ROWS 3 //!< Number of rows on the calliope mini LED matrix
 #define MATRIX_COLS 9 //!< Number of columns on the calliope mini LED matrix
 uint8_t rowpins[MATRIX_ROWS] = {
-    26, 27, 28}; //!< Pin numbers for the rows on the calliope mini LED matrix
+    13, 14, 15}; //!< Pin numbers for the rows on the calliope mini LED matrix
 uint8_t colpins[MATRIX_COLS] = {
-    3,  4, 10, 23, 24,
-    25, 9, 7,  6}; //!< Pin numbers for the columns on the calliope mini LED matrix
+    4,  5, 6, 7, 8,
+    9, 10, 11,  12}; //!< Pin numbers for the columns on the calliope mini LED matrix
 
 uint8_t pixel_to_row[25] = {
     1, 2, 1, 2, 1, 3, 3, 3, 3, 3, 2, 1, 2,

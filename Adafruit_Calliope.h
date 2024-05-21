@@ -38,7 +38,7 @@ public:
       HEART[5],                       ///< full heart icon
       NO[5],                          ///< X icon
       YES[5],                         ///< Check icon
-      MICROBIT_SMILE[5];              ///< smile icon
+      CALLIOPE_SMILE[5];              ///< smile icon
 
 private:
   void startTimer();
