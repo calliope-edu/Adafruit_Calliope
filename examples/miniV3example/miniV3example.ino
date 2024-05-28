@@ -39,9 +39,7 @@ void setup() {
   pinMode(PIN_M1_SPEED, OUTPUT);
   digitalWrite(PIN_M_MODE, 1); // Sets motor driver into correct mode (PHASE/ENABLE)
   digitalWrite(PIN_M0_DIR, 0); // Sets motor M0 into forward direction 
-  analogWrite(PIN_M0_SPEED, 200); //Sets speed of M0 to 200/1024
-  digitalWrite(PIN_M1_DIR, 1); // Sets motor M0 into backward direction 
-  analogWrite(PIN_M1_SPEED, 200); // Sets speed of M1 to 200/1024
+  digitalWrite(PIN_M1_DIR, 1); // Sets motor M1 into backward direction 
 
   // Set up microphone
   pinMode(28, OUTPUT);
