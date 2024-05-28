@@ -3,6 +3,7 @@
 // BLE Serial code Copyright (c) Sandeep Mistry. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+// Only works with Calliope mini 1 & 2, Calliope mini 3 is not supported due to a lack of a soft device implementation
 
 #include <Adafruit_Calliope.h>
 

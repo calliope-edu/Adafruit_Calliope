@@ -1,10 +1,11 @@
 /* 
-This is a demo of different features of the Calliope mini 3: 
+This is a simple demo of different features of the Calliope mini 3: 
 - 5x5 LED Matrix
 - Buttons A & B
 - 3 internal RGB leds
 - Motor driver DRV8835
 - Microphone
+- Serial
 */
 
 #include <Adafruit_Calliope.h>
@@ -28,7 +29,7 @@ void setup() {
   pixels.setPixelColor(0, pixels.Color(50, 0, 50)); // red + blue   = magenta
   pixels.setPixelColor(1, pixels.Color(50, 50, 0)); // red + green  = yellow
   pixels.setPixelColor(2, pixels.Color(0, 50, 50)); // green + blue = cyan
-  pixels.show(); // Initialize all pixels to 'off'
+  pixels.show();
 
   // Set up motor driver for mini V3
   pinMode(PIN_M_MODE, OUTPUT); 
@@ -43,8 +44,8 @@ void setup() {
   analogWrite(PIN_M1_SPEED, 200); // Sets speed of M1 to 200/1024
 
   // Set up microphone
-  pinMode(28, OUTPUT); // activates micro:phone by pulling RUN_MIC high
-  digitalWrite(28, HIGH);
+  pinMode(28, OUTPUT);
+  digitalWrite(28, HIGH);  // activates micro:phone by pulling RUN_MIC high
   pinMode(PIN_A6, INPUT); 
 
   // Set up LED matrix
@@ -67,16 +68,20 @@ void loop(){
   if (! digitalRead(PIN_BUTTON_A)) 
   {
     Serial.println("Button A pressed");
+    calliope.print("A");
     analogWrite(PIN_M0_SPEED, 500); // Raise speed to 500/1024
     analogWrite(PIN_M1_SPEED, 500); // Raise speed to 500/1024
-    pixels.setPixelColor(1, pixels.Color(0, 50, 0)); pixels.show();
+    pixels.fill(pixels.Color(0, 30, 0)); // Sets neopixels to green
+    pixels.show();
   }
   if (! digitalRead(PIN_BUTTON_B)) 
   {
     Serial.println("Button B pressed");
+    calliope.print("B");
     analogWrite(PIN_M0_SPEED, 0); // Turn off motor
     analogWrite(PIN_M1_SPEED, 0); // Turn off motor
-    pixels.setPixelColor(1, pixels.Color(0, 0, 0)); pixels.show();
+    pixels.fill(pixels.Color(30, 0, 0)); // Sets neopixels to red
+    pixels.show();
   }
   
   // Microphone Measurement: get maximum value over 1000 measurements
@@ -87,8 +92,10 @@ void loop(){
   }
   Serial.print("Volume:");
   Serial.println(maxVol);
-  calliope.print(map(maxVol,0,150,0,9)); // Prints maximum volume on led matrix
 
-  delay(100); // 
+  calliope.drawLine(4,0,4,4, LED_OFF); // removes the mic volume column
+  calliope.drawLine(4,4,4,map(maxVol,0,170,4,0), LED_ON); // draws a line with the length of the normalized mic volume on the 4th column
   
+  delay(100); 
+
 }
