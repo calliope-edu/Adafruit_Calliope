@@ -6,8 +6,8 @@ This is a simple demo of different features of the Calliope mini 1 & 2:
 - Serial 
 */
 
-#include <Adafruit_Calliope.h>
-Adafruit_Calliope_Matrix calliope;
+#include <Calliope_Arduino.h>
+Calliope_Matrix calliope;
 
 
 void setup() {  

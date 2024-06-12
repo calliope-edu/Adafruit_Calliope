@@ -1,8 +1,8 @@
 // Slow die temperature reader for piping to Adafruit IO
 
-#include <Adafruit_Calliope.h>
+#include <Calliope_Arduino.h>
 
-Adafruit_Calliope calliope;
+Calliope calliope;
 
 void setup()
 {
