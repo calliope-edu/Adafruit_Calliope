@@ -5,12 +5,12 @@
 
 // Only works with Calliope mini 1 & 2, Calliope mini 3 is not supported due to a lack of a soft device implementation
 
-#include <Adafruit_Calliope.h>
+#include <Calliope_Arduino.h>
 // Add accelerometer support
 #include "Wire.h"
 #include "MMA8653.h"
 
-Adafruit_Calliope calliope;
+Calliope calliope;
 MMA8653 accel;
 
 void setup() {

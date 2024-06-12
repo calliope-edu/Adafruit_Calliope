@@ -8,13 +8,13 @@ This is a simple demo of different features of the Calliope mini 3:
 - Serial
 */
 
-#include <Adafruit_Calliope.h>
+#include <Calliope_Arduino.h>
 #include <Adafruit_NeoPixel.h>
 
 
 Adafruit_NeoPixel pixels = Adafruit_NeoPixel(3, PIN_RGB, NEO_GRB + NEO_KHZ800);
 
-Adafruit_Calliope_Matrix calliope;
+Calliope_Matrix calliope;
 
 void setup() {  
   // Set up serial

@@ -1,6 +1,6 @@
 // This is a 'low level' demo showing how to use timer 2 (the only available timer really)
 // to blink an LED. This code turned into the matrix handler, so you cant use it and the 
-// Adafruit_Calliope library at the same time but maybe its useful!
+// Calliope library at the same time but maybe its useful!
 
 
 #ifdef _VARIANT_CALLIOPE_MINI_

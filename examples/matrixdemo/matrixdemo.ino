@@ -3,9 +3,9 @@
 // a really small screen!
 // https://learn.adafruit.com/adafruit-gfx-graphics-library
 
-#include <Adafruit_Calliope.h>
+#include <Calliope_Arduino.h>
 
-Adafruit_Calliope_Matrix calliope;
+Calliope_Matrix calliope;
 
 const uint8_t
   smile_bmp[] =

@@ -1,9 +1,7 @@
-# Adafruit Calliope library
+# Calliope Arduino library
 
-### This is a fork of Adafruit's
+### This is a fork of Adafruit's micro:bit library
 The fork was modified to support the Calliope mini V3 and include an example project to show core functionalities of the Calliope mini V3.
-
-Wrapper code and examples for using the Calliope mini with the Arduino IDE.
 
 Included: 
 
