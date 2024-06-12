@@ -1,4 +1,7 @@
-// Slow die temperature reader for piping to Adafruit IO
+// Slow unprecise die temperature reader for piping to Adafruit IO
+
+// Only works with Calliope mini 1 & 2. Go to Menu -> Tools -> Softdevice, Select S110 or S130
+// Calliope mini 3 is not supported due to a lack of a soft device implementation
 
 #include <Calliope_Arduino.h>
 
