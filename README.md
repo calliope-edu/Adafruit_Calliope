@@ -1,6 +1,6 @@
 # Calliope Arduino library
 
-### This is a fork of Adafruit's micro:bit library
+### This is a fork of [Adafruit's micro:bit library](https://github.com/adafruit/Adafruit_Microbit)
 The fork was modified to support the Calliope mini V3 and include an example project to show core functionalities of the Calliope mini V3.
 
 Included: 
